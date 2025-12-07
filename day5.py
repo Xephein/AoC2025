@@ -7,9 +7,25 @@ def part_1():
 
     return
 
-def part_2():
-
-    return 
+def part_2(ing_ranges):
+    i = 0
+    while i < len(ing_ranges):
+        if i + 1 == len(ing_ranges):
+            break
+        lo, hi = ing_ranges[i]
+        next_lo, next_hi = ing_ranges[i+1]
+        if next_lo > hi:
+            i += 1
+            continue
+        if hi <= next_hi:
+            ing_ranges[i][1] = next_hi
+            ing_ranges.pop(i+1)
+            i -= 1
+        elif hi > next_hi:
+            ing_ranges.pop(i+1)
+            i -= 1
+        i += 1
+    return ing_ranges
 
 
 filename = "day5.txt"
@@ -47,9 +63,15 @@ t0 = time()
 contents = ut.parse_input(filename)
 answer = 0
 
+ing_ranges = []
 for line in contents:
-
-    continue
+    if line == "":
+        break
+    ing_ranges.append(list(map(int, line.split("-"))))
+ing_ranges.sort(key=lambda x: x[0])
+ing_ranges = part_2(ing_ranges)
+for lo, hi in ing_ranges:
+    answer += hi + 1 - lo
 
 t1 = time()
 
