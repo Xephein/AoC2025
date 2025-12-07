@@ -9,5 +9,5 @@ def parse_input(filename):
     return get_input(filename).split("\n")
 
 def log_result(exercise, result, runtime):
-    print(f"{exercise}: {result}. Runtime: {timedelta(seconds=runtime)}")
+    print(f"{exercise}: {result}.\nRuntime: {runtime:5f}s")
     return
